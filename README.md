@@ -54,27 +54,26 @@ A arduino based Joypad hardware adaptor.
 Atari 2600有一个摇杆和一个按钮，使用9针母口，无芯片，仅5个开关。
 
 ### Pseudocode
-    if(digitalRead(Artari_U)==LOW)
-      JOYPAD_U=1
+    if( digitalRead(Artari_U) == LOW )
+      HID_U = PRESSED
     else
-      JOPYAD_U=0
-    if(digitalRead(Artari_D)==LOW)
-      JOYPAD_D=1
+      HID_U = RELEASE
+    if( digitalRead(Artari_D) == LOW )
+      HID_D = PRESSED
     else
-      JOPYAD_D=0
-    if(digitalRead(Artari_L)==LOW)
-      JOYPAD_L=1
+      HID_D = RELEASE
+    if( digitalRead(Artari_L) == LOW )
+      HID_L = PRESSED
     else
-      JOPYAD_L=0
-    if(digitalRead(Artari_R)==LOW)
-      JOYPAD_R=1
+      HID_L = RELEASE
+    if( digitalRead(Artari_R) == LOW )
+      HID_R = PRESSED
     else
-      JOPYAD_R=0
-    if(digitalRead(Artari_T)==LOW)
-      JOYPAD_B1=1
+      HID_R = RELEASE
+    if( digitalRead(Artari_T) == LOW )
+      HID_B1 = PRESSED
     else
-      JOPYAD_B1=0
-      
+      HID_B1 = RELEASE
       
 ### Implementation
 公共端接地，五个信号端接5个数据区针，数据区针初始化为INPUT_PULLUP，无操作时为高电平，按下时为低电平。
@@ -89,7 +88,28 @@ Atari 2600有一个摇杆和一个按钮，使用9针母口，无芯片，仅5�
 - DATA信号常高，CLK信号开始后下降沿读数据，数据顺序为按键B、Y、Select、Start、Up、Down、Left、Right、A、X、L、R。
 
 ### Pseudocode
-
+    digitalWrite(FC_LATCH, HIGH)
+    delay(12)
+    digitalWrite(FC_LATCH, LOW)
+    delay(6000)
+    digitalWrite(FC_CLK, HIGH)
+    delay(12)
+    if( digitalRead(FC_DATA) == HIGH )
+      HID_B2 = PRESSED
+    else
+      HID_B2 = RELEASE
+    digitalWrite(FC_CLK, LOW)
+    delay(12)
+    digitalWrite(FC_CLK, HIGH)
+    delay(12)
+    if( digitalRead(FC_DATA) == HIGH )
+      HID_B3 = PRESSED
+    else
+      HID_B3 = RELEASE
+    digitalWrite(FC_CLK, LOW)
+    delay(12)
+    ...
+    delay(10466)
 
 ### Implementation
 
