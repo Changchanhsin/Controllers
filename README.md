@@ -13,7 +13,7 @@ A arduino based Joypad hardware adaptor.
 
 （图见PPT文件）
 
-## Port/Interface
+## Port/Pinmap/Interface
 
 手柄通过专用接口转到15pin D-SUB公口，Arduino通过15pin接口与手柄连接，Arduino转换手柄信息为键盘按键
 
@@ -32,9 +32,20 @@ A arduino based Joypad hardware adaptor.
 
 保留针不使用。
 
-## Keymap
+## Joystick/Keymap
 
 当采用键盘模式时，一个Leonardo可以同时连接两个手柄；当采用游戏手柄模式时，一个Leonardo仅可以连接第一个手柄
+
+|HID|Keyboard1|Keyboard2|Atari|FC|SFC|MD|PS/PS2|SS|DC|N64|NGC|
+|---|---|---|---|---|---|---|---|---|---|---|---|
+|X/Y|U/D/L/R|P/./L/'|Joystick|D-Pad|D-Pad|D-Pad|X/Y|D-Pad|X/Y|X/Y|X/Y|
+|B1|x|h|Trigger|A|A|B|Cross|B|A|Cd|B|
+|B2|c|j|-|B|B|A|Circle|A|B|Cr|A|
+|B3|s|u|-|-|X|Y|Rect|X|Y|Cl|X|
+|B4|d|i|-|-|Y|X|Tri|Y|X|Cu|Y|
+|B5|q|6|-|-|L|Z|L1|L|L|L|L|
+|B6|e|8|-|-|R|C|R1|R|R|R|R|
+|...|
 
 # Reference
 
@@ -43,7 +54,28 @@ A arduino based Joypad hardware adaptor.
 Atari 2600有一个摇杆和一个按钮，使用9针母口，无芯片，仅5个开关。
 
 ### Pseudocode
-
+    if(digitalRead(Artari_U)==LOW)
+      JOYPAD_U=1
+    else
+      JOPYAD_U=0
+    if(digitalRead(Artari_D)==LOW)
+      JOYPAD_D=1
+    else
+      JOPYAD_D=0
+    if(digitalRead(Artari_L)==LOW)
+      JOYPAD_L=1
+    else
+      JOPYAD_L=0
+    if(digitalRead(Artari_R)==LOW)
+      JOYPAD_R=1
+    else
+      JOPYAD_R=0
+    if(digitalRead(Artari_T)==LOW)
+      JOYPAD_B1=1
+    else
+      JOPYAD_B1=0
+      
+      
 ### Implementation
 公共端接地，五个信号端接5个数据区针，数据区针初始化为INPUT_PULLUP，无操作时为高电平，按下时为低电平。
 
