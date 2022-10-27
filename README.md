@@ -102,9 +102,11 @@ Atari 2600有一个摇杆和一个按钮，使用9针母口，无芯片，仅5�
 
 ### Pseudocode
 
-    fc_btn_sequence = { FC_BTN_B, FC_BTN_Y, FC_BTN_SELECT, FC_BTN_START,
-                        FC_BTN_UP, FC_BTN_DOWN, FC_BTN_LEFT, FC_BTN_RIGHT,
-                        FC_BTN
+
+    fc_btn_sequence = { FC_BTN_B,  FC_BTN_Y,    FC_BTN_SELECT, FC_BTN_START,
+                        FC_BTN_UP, FC_BTN_DOWN, FC_BTN_LEFT,   FC_BTN_RIGHT,
+                        FC_BTN_A,  FC_BTN_X,    FC_BTN_L,      FC_BTN_R,
+                        NULL,      NULL,        NULL,          NULL }
 
     digitalWrite(FC_PIN_LATCH, HIGH)
     delay(12)
@@ -114,7 +116,7 @@ Atari 2600有一个摇杆和一个按钮，使用9针母口，无芯片，仅5�
     for( i=0; i<16; i++ ){
       digitalWrite(FC_PIN_CLK, HIGH)
       delay(12)
-      Gamepad.Button[FC_BTN_B] = digitalRead(FC_PIN_DATA)
+      Gamepad.Button[ fc_btn_sequence[i] ] = digitalRead(FC_PIN_DATA)
       digitalWrite(FC_PIN_CLK, LOW)
       delay(12)
     }
