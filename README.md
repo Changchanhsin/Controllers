@@ -110,7 +110,7 @@ Aatari 2600有一个摇杆和一个按钮，使用9针母口，无芯片，仅5�
         Gamepad.Buttons[RIGHT ] = r;
       }
     }
-    Gamepad.Buttons[B1] = 1 - digitalRead(A2600_PIN_T)
+    Gamepad.Buttons[B1] = 1 - digitalRead(A2600_PIN_T);
 
 ### Implementation
 
