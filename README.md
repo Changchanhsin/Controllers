@@ -94,20 +94,23 @@ Aatari 2600有一个摇杆和一个按钮，使用9针母口，无芯片，仅5�
     if( u == d == l == r == 1){
       Gamepad.Buttons[B2] = 1;
     }else{
+      Gamepad.Buttons[B2] = 0;
       if( u == d == 1 ){
         Gamepad.Buttons[SELECT] = 1;
       }else{
+        Gamepad.Buttons[SELECT] = 0;
         Gamepad.Buttons[UP    ] = u;
         Gamepad.Buttons[DOWN  ] = d;
       }
       if( l == r == 1 ){
         Gamepad.Buttons[START ] = 1;
       }else{
+        Gamepad.Buttons[START ] = 0;
         Gamepad.Buttons[LEFT  ] = l;
         Gamepad.Buttons[RIGHT ] = r;
       }
     }
-    Gamepad.Buttons[B1   ] = 1 - digitalRead(A2600_PIN_T)
+    Gamepad.Buttons[B1] = 1 - digitalRead(A2600_PIN_T)
 
 ### Implementation
 
