@@ -124,7 +124,7 @@ Aatari 2600有一个摇杆和一个按钮，使用9针母口，无芯片，仅5�
 
 - LATCH常低，通过一个12微秒的高电平激活手柄输入。
 - LATCH高电平后等待6000微秒，连续发送CLK高电平脉冲以获得数据，每个脉冲宽度为12微秒高12微秒低，共16组。
-- DATA信号常高，CLK信号开始后下降沿读数据，数据顺序为按键A、B、Select、Start、Up、Down、Left、Right。
+- DATA信号常高，CLK信号开始后下降沿读数据，低电平为按下，数据顺序为按键A、B、Select、Start、Up、Down、Left、Right。
 
 光枪另有两个短空用于检测扳机和光传感器
 
@@ -149,7 +149,7 @@ Aatari 2600有一个摇杆和一个按钮，使用9针母口，无芯片，仅5�
     delay(6000);
 
     for( i=0; i<8; i++ ){
-      Gamepad.Button[ fc_btn_sequence[i] ] = digitalRead(FC_PIN_DATA);
+      Gamepad.Button[ fc_btn_sequence[i] ] = 1 - digitalRead(FC_PIN_DATA);
       digitalWrite(FC_PIN_CLK, HIGH);
       delay(6);
       digitalWrite(FC_PIN_CLK, LOW);
@@ -173,7 +173,7 @@ Aatari 2600有一个摇杆和一个按钮，使用9针母口，无芯片，仅5�
 
 - LATCH常低，通过一个12微秒的高电平激活手柄输入。
 - LATCH高电平后等待6000微秒，连续发送CLK高电平脉冲以获得数据，每个脉冲宽度为12微秒高12微秒低，共16组。
-- DATA信号常高，CLK信号开始后下降沿读数据，数据顺序为按键B、Y、Select、Start、Up、Down、Left、Right、A、X、L、R。
+- DATA信号常高，CLK信号开始后下降沿读数据，低电平为按下，数据顺序为按键B、Y、Select、Start、Up、Down、Left、Right、A、X、L、R。
 
 ### Timing
 
@@ -198,7 +198,7 @@ Aatari 2600有一个摇杆和一个按钮，使用9针母口，无芯片，仅5�
     delay(6000);
 
     for( i=0; i<16; i++ ){
-      Gamepad.Button[ sfc_btn_sequence[i] ] = digitalRead(SFC_PIN_DATA);
+      Gamepad.Button[ sfc_btn_sequence[i] ] = 1 - digitalRead(SFC_PIN_DATA);
       digitalWrite(SFC_PIN_CLK, HIGH);
       delay(6);
       digitalWrite(SFC_PIN_CLK, LOW);
@@ -217,32 +217,32 @@ Aatari 2600有一个摇杆和一个按钮，使用9针母口，无芯片，仅5�
 
 手柄采用5V供电，一个输入TH，6个输出TR、TL、D3、D2、D1、D0。
 
-TH通过输入高低电平以获得数据，2组高低电平获得3键手柄的信息，4组获得6键手柄的信息
+TH通过输入高低电平以获得数据，2组高低电平获得3键手柄的信息，4组获得6键手柄的信息。低电平为按下。
 
 ### Pseudocode
 
     for( i=0; i<4; i++){
       digitalWrite(MD_PIN_TH, HIGH);
       delay(12);
-      Gamepad.Button[MD_BTN_C    ] = digitalRead(MD_PIN_TR);
-      Gamepad.Button[MD_BTN_B    ] = digitalRead(MD_PIN_TL);
+      Gamepad.Button[MD_BTN_C    ] = 1 - digitalRead(MD_PIN_TR);
+      Gamepad.Button[MD_BTN_B    ] = 1 - digitalRead(MD_PIN_TL);
       if( i!=3 ){
-        Gamepad.Button[MD_BTN_RIGHT] = digitalRead(MD_PIN_D3);
-        Gamepad.Button[MD_BTN_LEFT ] = digitalRead(MD_PIN_D2);
-        Gamepad.Button[MD_BTN_DOWN ] = digitalRead(MD_PIN_D1);
-        Gamepad.Button[MD_BTN_UP   ] = digitalRead(MD_PIN_D0);
+        Gamepad.Button[MD_BTN_RIGHT] = 1 - digitalRead(MD_PIN_D3);
+        Gamepad.Button[MD_BTN_LEFT ] = 1 - digitalRead(MD_PIN_D2);
+        Gamepad.Button[MD_BTN_DOWN ] = 1 - digitalRead(MD_PIN_D1);
+        Gamepad.Button[MD_BTN_UP   ] = 1 - digitalRead(MD_PIN_D0);
       }else{
-        Gamepad.Button[MD_BTN_MODE ] = digitalRead(MD_PIN_D3);
-        Gamepad.Button[MD_BTN_X    ] = digitalRead(MD_PIN_D2);
-        Gamepad.Button[MD_BTN_Y    ] = digitalRead(MD_PIN_D1);
-        Gamepad.Button[MD_BTN_Z    ] = digitalRead(MD_PIN_D0);
+        Gamepad.Button[MD_BTN_MODE ] = 1 - digitalRead(MD_PIN_D3);
+        Gamepad.Button[MD_BTN_X    ] = 1 - digitalRead(MD_PIN_D2);
+        Gamepad.Button[MD_BTN_Y    ] = 1 - digitalRead(MD_PIN_D1);
+        Gamepad.Button[MD_BTN_Z    ] = 1 - digitalRead(MD_PIN_D0);
       }
       digitalWrite(MD_PIN_TH, LOW);
       delay(12);
-      Gamepad.Button[MD_BTN_START] = digitalRead(MD_PIN_TR);
-      Gamepad.Button[MD_BTN_A    ] = digitalRead(MD_PIN_TL);
-      Gamepad.Button[MD_BTN_DOWN ] = digitalRead(MD_PIN_D1);
-      Gamepad.Button[MD_BTN_UP   ] = digitalRead(MD_PIN_D0);
+      Gamepad.Button[MD_BTN_START] = 1 - digitalRead(MD_PIN_TR);
+      Gamepad.Button[MD_BTN_A    ] = 1 - digitalRead(MD_PIN_TL);
+      Gamepad.Button[MD_BTN_DOWN ] = 1 - digitalRead(MD_PIN_D1);
+      Gamepad.Button[MD_BTN_UP   ] = 1 - digitalRead(MD_PIN_D0);
     }
 
 ### Implementation
@@ -268,38 +268,38 @@ TH通过输入高低电平以获得数据，2组高低电平获得3键手柄的�
 
 手柄采用5V供电，2个输入S0和S1，4个输出D0、D1、D2、D3。
 
-S0和S1通过输入高低电平组合以获得数据。
+S0和S1通过输入高低电平组合以获得数据。低电平为按下，
 
 ### Pseudocode
 
     digitalWrite(SS_PIN_S0, LOW);
     digitalWrite(SS_PIN_S1, LOW);
     delay(12);
-    Gamepad.Button[SS_BTN_Z    ] = digitalRead(SS_PIN_D0);
-    Gamepad.Button[SS_BTN_Y    ] = digitalRead(SS_PIN_D1);
-    Gamepad.Button[SS_BTN_X    ] = digitalRead(SS_PIN_D2);
-    Gamepad.Button[SS_BTN_R    ] = digitalRead(SS_PIN_D3);
+    Gamepad.Button[SS_BTN_Z    ] = 1 - digitalRead(SS_PIN_D0);
+    Gamepad.Button[SS_BTN_Y    ] = 1 - digitalRead(SS_PIN_D1);
+    Gamepad.Button[SS_BTN_X    ] = 1 - digitalRead(SS_PIN_D2);
+    Gamepad.Button[SS_BTN_R    ] = 1 - digitalRead(SS_PIN_D3);
 
     digitalWrite(SS_PIN_S0, HIGH);
     digitalWrite(SS_PIN_S1, LOW);
     delay(12);
-    Gamepad.Button[SS_BTN_B    ] = digitalRead(SS_PIN_D0);
-    Gamepad.Button[SS_BTN_C    ] = digitalRead(SS_PIN_D1);
-    Gamepad.Button[SS_BTN_A    ] = digitalRead(SS_PIN_D2);
-    Gamepad.Button[SS_BTN_START] = digitalRead(SS_PIN_D3);
+    Gamepad.Button[SS_BTN_B    ] = 1 - digitalRead(SS_PIN_D0);
+    Gamepad.Button[SS_BTN_C    ] = 1 - digitalRead(SS_PIN_D1);
+    Gamepad.Button[SS_BTN_A    ] = 1 - digitalRead(SS_PIN_D2);
+    Gamepad.Button[SS_BTN_START] = 1 - digitalRead(SS_PIN_D3);
 
     digitalWrite(SS_PIN_S0, LOW);
     digitalWrite(SS_PIN_S1, HIGH);
     delay(12);
-    Gamepad.Button[SS_BTN_UP   ] = digitalRead(SS_PIN_D0);
-    Gamepad.Button[SS_BTN_DOWN ] = digitalRead(SS_PIN_D1);
-    Gamepad.Button[SS_BTN_LEFT ] = digitalRead(SS_PIN_D2);
-    Gamepad.Button[SS_BTN_RIGHT] = digitalRead(SS_PIN_D3);
+    Gamepad.Button[SS_BTN_UP   ] = 1 - digitalRead(SS_PIN_D0);
+    Gamepad.Button[SS_BTN_DOWN ] = 1 - digitalRead(SS_PIN_D1);
+    Gamepad.Button[SS_BTN_LEFT ] = 1 - digitalRead(SS_PIN_D2);
+    Gamepad.Button[SS_BTN_RIGHT] = 1 - digitalRead(SS_PIN_D3);
 
     digitalWrite(SS_PIN_S0, HIGH);
     digitalWrite(SS_PIN_S1, HIGH);
     delay(12);
-    Gamepad.Button[SS_BTN_L    ] = digitalRead(SS_PIN_D3);
+    Gamepad.Button[SS_BTN_L    ] = 1 - digitalRead(SS_PIN_D3);
 
 ### Implementation
 
