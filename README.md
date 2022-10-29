@@ -38,7 +38,8 @@ A arduino based Joypad hardware adaptor.
 |D-SUB|9|14|4|1|2|6|7|8|11|12|5|10|
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 |Atari|-|GND|-|UP|DOWN|LEFT|RIGHT|TRIGGER|-|-|3.3V|GND|
-|FC/SFC|5V|GND|-|DATA|D3|LATCH|-|SFC/FC|CLK|D4|GND|5V|
+|FC|5V|GND|-|DATA|D3|LATCH|-|GND|CLK|D4|GND|5V|
+|SFC|5V|GND|-|DATA|D3|LATCH|-|5V|CLK|D4|GND|5V|
 |MD|5V|GND|-|D0|D1|D2|D3|TL|TR|TH|GND|3.3V|
 |SS|5V|GND|-|D0|D1|D2|D3|-|S0|S1|3.3V|3.3V|
 |PS/PS2|9V|GND|3.3V|DATA|ACK|ATT|-|-|CMD|CLK|GND|5V|
