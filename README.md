@@ -149,11 +149,11 @@ Aatari 2600有一个摇杆和一个按钮，使用9针母口，无芯片，仅5�
     delay(6000);
 
     for( i=0; i<8; i++ ){
-      digitalWrite(FC_PIN_CLK, HIGH);
-      delay(12);
       Gamepad.Button[ fc_btn_sequence[i] ] = digitalRead(FC_PIN_DATA);
+      digitalWrite(FC_PIN_CLK, HIGH);
+      delay(6);
       digitalWrite(FC_PIN_CLK, LOW);
-      delay(12);
+      delay(6);
     }
     
     delay(96);
@@ -198,12 +198,12 @@ Aatari 2600有一个摇杆和一个按钮，使用9针母口，无芯片，仅5�
     delay(6000);
 
     for( i=0; i<16; i++ ){
-      digitalWrite(SFC_PIN_CLK, HIGH);
-      delay(12);
       Gamepad.Button[ sfc_btn_sequence[i] ] = digitalRead(SFC_PIN_DATA);
+      digitalWrite(SFC_PIN_CLK, HIGH);
+      delay(6);
       digitalWrite(SFC_PIN_CLK, LOW);
-      delay(12);
-    }
+      delay(6);
+   }
 
     delay(10466);
 
