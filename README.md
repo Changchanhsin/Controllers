@@ -203,7 +203,7 @@ Aatari 2600有一个摇杆和一个按钮，使用9针母口，无芯片，仅5�
       delay(6);
       digitalWrite(SFC_PIN_CLK, LOW);
       delay(6);
-   }
+    }
 
     delay(10466);
 
